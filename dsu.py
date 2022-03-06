@@ -26,20 +26,8 @@ class DSU:
             self.rank[x_set] = self.rank[x_set] + 1
 
 
-class DataBase:
-    pass
-
-
-class GUI:
-    pass
-
-
 if __name__ == '__main__':
     set_dsu = DSU(10)  # set_dsu - переменная принимающее значения из класса DSU
-    # set_dsu.union(1, 0)
-    # set_dsu.union(1, 2)
-    # set_dsu.union(5, 2)
-    # set_dsu.union(7, 4)
     if set_dsu.find(1) == set_dsu.find(0):
         print('Тест 1. Значения', set_dsu.find(1), 'и', set_dsu.find(0), 'совпадают, множество уже объединено')
     else:
