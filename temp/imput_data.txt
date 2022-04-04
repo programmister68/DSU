@@ -1,0 +1,13 @@
+
+    universe = [1, 6, 3, 4, 8]
+
+    ds = DisjointSet()
+
+    ds.makeSet(universe)
+    printSets(universe, ds)
+
+    ds.Union(6, 1)
+    printSets(universe, ds)
+
+    ds.Union(3, 4)
+    printSets(universe, ds)
