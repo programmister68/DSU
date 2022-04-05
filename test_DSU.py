@@ -18,9 +18,6 @@ class TestDisjointSet(unittest.TestCase):
         self.dsu.find(6)
         self.assertEqual(self.dsu.parent[1], self.dsu.parent[6])
 
-    def test_imp(self):
-        pass
-
 
 if __name__ == 'main':
     pass
