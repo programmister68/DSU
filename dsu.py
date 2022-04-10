@@ -16,8 +16,7 @@ class DSU:
         x = self.find(a)
         y = self.find(b)
         if x == y:
-            return
-
+            return x == y
         if self.rank[x] > self.rank[y]:
             self.parent[y] = x
         elif self.rank[x] < self.rank[y]:
