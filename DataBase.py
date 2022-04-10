@@ -1,32 +1,68 @@
-from sqlite3 import connect
+import sqlite3
+import logging
+logging.basicConfig(level=logging.INFO)
+# logging.disable(logging.INFO)
 
 
 class DataBase:
+    """
+    класс с функциями дли взаимодействия с базой данных
+    """
     def __init__(self, name):
-        self.conn = connect(f"{name}")
-        cursor = self.conn.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXIST unions (id INTEGER PRIMARY KEY AUTOINCREMENT, unions TEXT)")
-        self.conn.commit()
-        cursor.close()
+        """
+        создает базу данных
+        :param name: имя базы данных
+        """
+        self.db = sqlite3.connect(f"{name}")
+        sql = self.db.cursor()
+        sql.execute("""CREATE TABLE IF NOT EXISTS dsu ( 
+            id integer, 
+            sets TEXT
+        )""")
+        self.db.commit()
+        sql.close()
 
-    def insert(self, data):
-        if data == 'None':
-            data = None
-        cursor = self.conn.cursor()
-        cursor.execute(f"""INSERT INTO unions (unions) VALUES ('{data}')""")
-        self.conn.commit()
-        cursor.close()
+    def get_from_db(self):
+        """
+        Возвращает все значения из базы данных в переменной data
+        :return: data
+        """
+        sql = self.db.cursor()
+        data = [value for value in sql.execute(f"SELECT * FROM dsu")]
+        if not data:
+            logging.log(logging.INFO, ' база данных пуста')
+        sql.close()
+        return data
 
-    def get_id(self):
-        cursor = self.conn.cursor()
-        list_id = [str(i)[1:-2] for i in cursor.execute("SELECT id FROM unions")]
-        cursor.close()
-        return list_id
+    def del_all(self):
+        """
+        Вспомогательная функция для save_all.
+        Удаляет все данные в базе данных.
+        :return: None
+        """
+        cur = self.db.cursor()
+        cur.execute("DELETE from dsu")
+        self.db.commit()
 
-    def delete_unions(self):
-        cursor = self.conn.cursor()
-        cursor.execute("DELETE FROM unions")
-        cursor.execute("DELETE FROM sqlite_sequence WHERE name = 'unions'")
-        cursor.execute("UPDATE sqlite_sequence SET seq = 0 WHERE name = 'unions'")
-        self.conn.commit()
-        cursor.close()
+    def db_insert(self, key, data):
+        """
+        функция для вставки данных в базу данных
+        :param key: ключ, который вставляем в базу данных
+        :param data: данные, которые вставляем в базу данных
+        :return: None
+        """
+        cur = self.db.cursor()
+        cur.execute("INSERT INTO dsu VALUES (?,?)", (key, data))
+        self.db.commit()
+        cur.close()
+
+    def save_all(self, path):
+        """
+        Переписывает все старые данные на новые - удаляет данные и записывает текущие
+        :param path: путь обхода структуры данных
+        :return: None
+        """
+        self.del_all()
+        for val in path:
+            if val[1] is not None:
+                self.db_insert(val[0], val[1])
