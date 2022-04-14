@@ -25,9 +25,8 @@ class DSU:
             self.parent[x] = y
             self.rank[y] = self.rank[y] + 1
 
-
-def print_sets(universe, ds):
-    print([ds.find(i) for i in universe])
+    def print_sets(self):
+        print([self.find(i) for i in universe])
 
 
 if __name__ == '__main__':

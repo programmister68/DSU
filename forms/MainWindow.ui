@@ -89,17 +89,7 @@
    </item>
    <item row="1" column="1" rowspan="2" colspan="2">
     <layout class="QFormLayout" name="controlLayout">
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineAdd">
-       <property name="font">
-        <font>
-         <family>Nokia Sans S60</family>
-         <pointsize>10</pointsize>
-        </font>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
+     <item row="3" column="1">
       <widget class="QPushButton" name="addButton">
        <property name="maximumSize">
         <size>
@@ -121,7 +111,7 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
+     <item row="4" column="1">
       <widget class="QPushButton" name="unionButton">
        <property name="minimumSize">
         <size>
@@ -150,26 +140,35 @@
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QLineEdit" name="lineUnion">
+      <widget class="QPushButton" name="findButton">
        <property name="font">
         <font>
          <family>Nokia Sans S60</family>
          <pointsize>10</pointsize>
         </font>
+       </property>
+       <property name="cursor">
+        <cursorShape>WhatsThisCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Найти</string>
        </property>
       </widget>
      </item>
      <item row="7" column="1">
-      <widget class="QLineEdit" name="lineFind">
-       <property name="font">
-        <font>
-         <family>Nokia Sans S60</family>
-         <pointsize>10</pointsize>
-        </font>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
-      </widget>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>200</height>
+        </size>
+       </property>
+      </spacer>
      </item>
-     <item row="11" column="1">
+     <item row="10" column="1">
       <widget class="QLabel" name="messageString">
        <property name="enabled">
         <bool>true</bool>
@@ -222,34 +221,31 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
-      <widget class="QPushButton" name="findButton">
+     <item row="12" column="1">
+      <widget class="QPushButton" name="pushButton_2">
        <property name="font">
         <font>
          <family>Nokia Sans S60</family>
          <pointsize>10</pointsize>
         </font>
        </property>
-       <property name="cursor">
-        <cursorShape>WhatsThisCursor</cursorShape>
-       </property>
        <property name="text">
-        <string>Найти</string>
+        <string>Загрузить</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
+     <item row="11" column="1">
+      <widget class="QPushButton" name="pushButton">
+       <property name="font">
+        <font>
+         <family>Nokia Sans S60</family>
+         <pointsize>10</pointsize>
+        </font>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>200</height>
-        </size>
+       <property name="text">
+        <string>Сохранить</string>
        </property>
-      </spacer>
+      </widget>
      </item>
     </layout>
    </item>

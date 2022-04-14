@@ -1,13 +1,85 @@
 
-    universe = [1, 6, 3, 4, 8]
+    universe = [1, 6, 3, 4, 8, 20, 104, 348, 890, 10]
+    ds = DSU()
+    ds.make_set(universe)
+    ds.print_sets()
 
-    ds = DisjointSet()
+    ds.union(6, 1)
+    ds.print_sets()
 
-    ds.makeSet(universe)
-    printSets(universe, ds)
+    ds.union(8, 3)
+    ds.print_sets()
 
-    ds.Union(6, 1)
-    printSets(universe, ds)
+    ################# Working_code(new)
 
-    ds.Union(3, 4)
-    printSets(universe, ds)
+    class DSU:
+    parent = {}
+    rank = {}
+
+    def make_set(self, universe):
+        for i in universe:
+            self.parent[i] = i
+            self.rank[i] = 0
+
+    def find(self, k):
+        if self.parent[k] != k:
+            self.parent[k] = self.find(self.parent[k])
+        return self.parent[k]
+
+    def union(self, a, b):
+        x = self.find(a)
+        y = self.find(b)
+        if x == y:
+            return x == y
+        if self.rank[x] > self.rank[y]:
+            self.parent[y] = x
+        elif self.rank[x] < self.rank[y]:
+            self.parent[x] = y
+        else:
+            self.parent[x] = y
+            self.rank[y] = self.rank[y] + 1
+
+    def print_sets(self):
+        print([self.find(i) for i in universe])
+
+
+if __name__ == '__main__':
+    pass
+
+
+################################# Working_code (old)
+
+class DSU:
+    parent = {}
+    rank = {}
+
+    def make_set(self, universe):
+        for i in universe:
+            self.parent[i] = i
+            self.rank[i] = 0
+
+    def find(self, k):
+        if self.parent[k] != k:
+            self.parent[k] = self.find(self.parent[k])
+        return self.parent[k]
+
+    def union(self, a, b):
+        x = self.find(a)
+        y = self.find(b)
+        if x == y:
+            return x == y
+        if self.rank[x] > self.rank[y]:
+            self.parent[y] = x
+        elif self.rank[x] < self.rank[y]:
+            self.parent[x] = y
+        else:
+            self.parent[x] = y
+            self.rank[y] = self.rank[y] + 1
+
+
+def print_sets(universe, ds):
+    print([ds.find(i) for i in universe])
+
+
+if __name__ == '__main__':
+    pass
