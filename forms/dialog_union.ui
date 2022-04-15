@@ -40,18 +40,25 @@
      </widget>
     </item>
     <item>
-     <widget class="QDialogButtonBox" name="buttonBoxUnion">
+     <widget class="QLineEdit" name="lineEdit_2">
       <property name="font">
        <font>
         <family>Nokia Sans S60</family>
         <pointsize>10</pointsize>
        </font>
       </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="buttonUnion">
+      <property name="font">
+       <font>
+        <family>Nokia Sans S60</family>
+        <pointsize>10</pointsize>
+       </font>
       </property>
-      <property name="standardButtons">
-       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <property name="text">
+       <string>Объединить</string>
       </property>
      </widget>
     </item>
@@ -115,38 +122,5 @@
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBoxUnion</sender>
-   <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBoxUnion</sender>
-   <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

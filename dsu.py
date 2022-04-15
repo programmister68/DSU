@@ -1,9 +1,13 @@
-class DSU:
-    parent = {}
-    rank = {}
 
-    def make_set(self, universe):
-        for i in universe:
+class DSU:
+
+    def __init__(self):
+        self.parent = {}
+        self.rank = {}
+        self.universe = []
+
+    def make_set(self):
+        for i in self.universe:
             self.parent[i] = i
             self.rank[i] = 0
 
@@ -25,8 +29,19 @@ class DSU:
             self.parent[x] = y
             self.rank[y] = self.rank[y] + 1
 
+    def push(self, item):
+        self.universe.append(item)
+
     def print_sets(self):
-        print([self.find(i) for i in universe])
+        self.result = [self.find(i) for i in self.universe]
+        #print(self.result)
+        self.listSet = []
+
+        self.listSet.append(self.result)
+
+        print(self.listSet)
+        return self.listSet
+
 
 
 if __name__ == '__main__':
