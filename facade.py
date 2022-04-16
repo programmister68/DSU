@@ -29,13 +29,14 @@ class Facade:
 
 
 if __name__ == '__main__':
-    facade = Facade()
-    facade.push(6)
-    facade.push(8)
-    facade.push(1)
-    facade.make_set()
-    facade.union(8, 6)
-    facade.saveDB()
-    print(facade.find(8))
-    print(facade.find(6))
-    print(facade.find(1))
+    # facade = Facade()
+    # facade.push(6)
+    # facade.push(8)
+    # facade.push(1)
+    # facade.make_set()
+    # facade.union(8, 6)
+    # facade.saveDB()
+    # print(facade.find(8))
+    # print(facade.find(6))
+    # print(facade.find(1))
+    pass
