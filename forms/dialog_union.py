@@ -29,15 +29,20 @@ class Ui_Dialog(object):
         self.lineEditUnion.setFont(font)
         self.lineEditUnion.setObjectName("lineEditUnion")
         self.verticalLayout.addWidget(self.lineEditUnion)
-        self.buttonBoxUnion = QtWidgets.QDialogButtonBox(self.verticalLayoutWidget)
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setFamily("Nokia Sans S60")
         font.setPointSize(10)
-        self.buttonBoxUnion.setFont(font)
-        self.buttonBoxUnion.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBoxUnion.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBoxUnion.setObjectName("buttonBoxUnion")
-        self.verticalLayout.addWidget(self.buttonBoxUnion)
+        self.lineEdit_2.setFont(font)
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.verticalLayout.addWidget(self.lineEdit_2)
+        self.buttonUnion = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setFamily("Nokia Sans S60")
+        font.setPointSize(10)
+        self.buttonUnion.setFont(font)
+        self.buttonUnion.setObjectName("buttonUnion")
+        self.verticalLayout.addWidget(self.buttonUnion)
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(20, 20, 341, 16))
         palette = QtGui.QPalette()
@@ -58,13 +63,12 @@ class Ui_Dialog(object):
         self.label.setObjectName("label")
 
         self.retranslateUi(Dialog)
-        self.buttonBoxUnion.accepted.connect(Dialog.accept)
-        self.buttonBoxUnion.rejected.connect(Dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        self.buttonUnion.setText(_translate("Dialog", "Объединить"))
         self.label.setText(_translate("Dialog", "Укажите элементы для объединения:"))
 
 
