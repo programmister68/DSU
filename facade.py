@@ -21,7 +21,7 @@ class Facade:
         self.dsu.push(item)
 
     def print_sets(self):
-        self.dsu.print_sets()
+        return self.dsu.print_sets()
 
     def saveDB(self):
         value = self.dsu.print_sets()

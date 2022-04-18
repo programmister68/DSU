@@ -1,6 +1,6 @@
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QAbstractScrollArea, QTableWidgetItem
 
 from facade import Facade
 import sys
@@ -17,6 +17,7 @@ class MainWindow(QMainWindow):
         self.setWindowIcon(QIcon('icons/icon.ico'))
         self.facade = facade
         self.setWindowTitle('Disjoint-Set')
+        self.tableWidget.insertRow(0)
 
         self.addButton.clicked.connect(self.make_set)
         self.unionButton.clicked.connect(self.union)
@@ -25,9 +26,31 @@ class MainWindow(QMainWindow):
         self.deleteButton.clicked.connect(self.delete)
         self.loadButton.clicked.connect(self.load)
 
+        self.tableWidget.setColumnCount(1)
+        self.tableWidget.setHorizontalHeaderLabels(["1"])
+        self.tableWidget.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
+
         logging.log(logging.INFO, 'Приложение запущено')
 
+    def update(self):
+        self.tableWidget.removeRow(0)
+        self.tableWidget.insertRow(0)
+        list = self.facade.print_sets()
+        C = 0
+        for i in list[0]:
+            self.tableWidget.setColumnCount(C + 1)
+            self.tableWidget.setItem(0, C, QTableWidgetItem(str(i)))
+            C += 1
+
     def make_set(self):  # Кнопка добавления данных
+        text = self.lineAdd.text()
+        self.facade.push(int(text))
+        self.facade.make_set()
+        self.update()
+
+
+
+
         # print('+')
         # data = int(self.lineAdd.text())
         # print('+')
@@ -48,7 +71,8 @@ class MainWindow(QMainWindow):
         logging.log(logging.INFO, 'Окно объединения запущено')
 
     def find(self):  # Кнопка поиска родителя
-        pass
+        text = self.lineFind.text()
+        self.label.setText(str(self.facade.find(int(text))))
 
         logging.log(logging.INFO, 'Пусть мама услышит, пусть мама придёт... Родитель найден!')
 
@@ -58,7 +82,10 @@ class MainWindow(QMainWindow):
         logging.log(logging.INFO, 'Данные сохранены')
 
     def delete(self):  # Кнопка удаления данных из БД
-        pass
+        text = self.lineAdd.text()
+        self.facade.push(int(text))
+        self.facade.make_set()
+        self.update()
 
         logging.log(logging.INFO, 'Данные удалены')
 
@@ -68,8 +95,9 @@ class MainWindow(QMainWindow):
         logging.log(logging.INFO, 'Данные загружены')
 
     def build(self, data):
-        print(self.facade.get)
-        self.WidgetDSU.addItems(self.list)
+        # print(self.facade.get)
+        # self.WidgetDSU.addItems(self.list)
+        pass
 
     def warning_no_int(self):
         """
@@ -111,7 +139,10 @@ class UnionWidget(QtWidgets.QWidget):
         self.setWindowTitle('Union')
 
     def union(self):  # Кнопка объединения двух элементов
-        pass
+        text = self.linePush_1st.text()
+        text2 = self.linePush_2nd.text()
+        self.facade.union(int(text),int(text2))
+        window.update()
 
         logging.log(logging.INFO, 'Элементы объединены')
 
