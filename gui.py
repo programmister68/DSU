@@ -48,20 +48,6 @@ class MainWindow(QMainWindow):
         self.facade.make_set()
         self.update()
 
-
-
-
-        # print('+')
-        # data = int(self.lineAdd.text())
-        # print('+')
-        #
-        # self.facade.push(data)
-        # # print('+')
-        # data = str(data)
-        # self.build(data)
-        # print('+-')
-        pass
-
         logging.log(logging.INFO, 'Элемент добавлен.')
 
     def union(self):  # Кнопка объединения двух элементов
@@ -77,15 +63,11 @@ class MainWindow(QMainWindow):
         logging.log(logging.INFO, 'Пусть мама услышит, пусть мама придёт... Родитель найден!')
 
     def save(self):  # Кнопка сохранения данных в БД
-        pass
-
+        self.facade.saveDB()
         logging.log(logging.INFO, 'Данные сохранены')
 
     def delete(self):  # Кнопка удаления данных из БД
-        text = self.lineAdd.text()
-        self.facade.push(int(text))
-        self.facade.make_set()
-        self.update()
+        pass
 
         logging.log(logging.INFO, 'Данные удалены')
 

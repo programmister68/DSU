@@ -1,19 +1,21 @@
+from random import randint
+
 from dsu import DSU
-import random
 
-import logging
-logging.disable(logging.INFO)
+dsu = DSU()
+test_elem = randint(0, 100)
 
+for i in range(10000):
+    dsu.push(test_elem)
 
-dsu = DSU
-numbers = list(range(1000000))
-random.shuffle(numbers)
-for i in numbers:
-    dsu.make_set(i)
+for j in range(10000):
+    dsu.make_set()
 
-random.shuffle(numbers)
-for i in numbers:
-    dsu = dsu.delete(i)
+for k in range(10000):
+    dsu.find(test_elem)
+
+for h in range(10000):
+    dsu.union(test_elem, test_elem)
 
 if __name__ == '__main__':
     pass
