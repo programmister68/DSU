@@ -23,7 +23,7 @@ class MainWindow(QMainWindow):
         self.unionButton.clicked.connect(self.union)
         self.findButton.clicked.connect(self.find)
         self.saveButton.clicked.connect(self.save)
-        self.deleteButton.clicked.connect(self.delete)
+        self.deleteButton.clicked.connect(self.delete_data)
         self.loadButton.clicked.connect(self.load)
 
         self.tableWidget.setColumnCount(1)
@@ -35,12 +35,12 @@ class MainWindow(QMainWindow):
     def update(self):
         self.tableWidget.removeRow(0)
         self.tableWidget.insertRow(0)
-        list = self.facade.print_sets()
-        C = 0
-        for i in list[0]:
-            self.tableWidget.setColumnCount(C + 1)
-            self.tableWidget.setItem(0, C, QTableWidgetItem(str(i)))
-            C += 1
+        list_set = self.facade.print_sets()
+        counter = 0
+        for i in list_set[0]:
+            self.tableWidget.setColumnCount(counter + 1)
+            self.tableWidget.setItem(0, counter, QTableWidgetItem(str(i)))
+            counter += 1
 
     def make_set(self):  # Кнопка добавления данных
         text = self.lineAdd.text()
@@ -60,40 +60,26 @@ class MainWindow(QMainWindow):
         text = self.lineFind.text()
         self.label.setText(str(self.facade.find(int(text))))
 
-        logging.log(logging.INFO, 'Пусть мама услышит, пусть мама придёт... Родитель найден!')
+        logging.log(logging.INFO, 'Родитель найден!')
 
     def save(self):  # Кнопка сохранения данных в БД
         self.facade.saveDB()
         logging.log(logging.INFO, 'Данные сохранены')
 
-    def delete(self):  # Кнопка удаления данных из БД
+    def delete_data(self):  # Кнопка удаления данных из БД
         pass
 
         logging.log(logging.INFO, 'Данные удалены')
 
     def load(self):  # Кнопка загрузки данных из БД
-        pass
-
+        self.facade.loadDB()
+        self.update()
         logging.log(logging.INFO, 'Данные загружены')
 
     def build(self, data):
         # print(self.facade.get)
         # self.WidgetDSU.addItems(self.list)
         pass
-
-    def warning_no_int(self):
-        """
-        Создание MessageBox, если данные содержат буквы и символы.
-        :return: None
-        """
-        messagebox_del = QMessageBox(self)
-        messagebox_del.setWindowTitle("Ошибка ввода")
-        messagebox_del.setText("Введите число!")
-        messagebox_del.setIcon(QMessageBox.Warning)
-        messagebox_del.setStandardButtons(QMessageBox.Ok)
-
-        messagebox_del.show()
-        logging.log(logging.INFO, 'Открыто диалоговое окно "Ошибка ввода"')
 
     def warning_no_nums(self):
         """
@@ -127,20 +113,6 @@ class UnionWidget(QtWidgets.QWidget):
         window.update()
 
         logging.log(logging.INFO, 'Элементы объединены')
-
-    def warning_no_int(self):
-        """
-        Создание MessageBox, если данные содержат буквы и символы.
-        :return: None
-        """
-        messagebox_del = QMessageBox(self)
-        messagebox_del.setWindowTitle("Ошибка ввода")
-        messagebox_del.setText("Введите число!")
-        messagebox_del.setIcon(QMessageBox.Warning)
-        messagebox_del.setStandardButtons(QMessageBox.Ok)
-
-        messagebox_del.show()
-        logging.log(logging.INFO, 'Открыто диалоговое окно "Ошибка ввода"')
 
     def warning_no_nums(self):
         """

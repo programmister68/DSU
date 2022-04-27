@@ -127,12 +127,18 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="linePush_1st">
+      <widget class="QSpinBox" name="linePush_1st">
        <property name="font">
         <font>
          <family>Nokia Sans S60</family>
          <pointsize>10</pointsize>
         </font>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>9999999</number>
        </property>
       </widget>
      </item>
@@ -150,12 +156,18 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="linePush_2nd">
+      <widget class="QSpinBox" name="linePush_2nd">
        <property name="font">
         <font>
          <family>Nokia Sans S60</family>
          <pointsize>10</pointsize>
         </font>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>9999999</number>
        </property>
       </widget>
      </item>

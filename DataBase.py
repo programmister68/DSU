@@ -35,8 +35,9 @@ class DataBase:
         self.db.commit()
         cur.close()
 
-    def save_all(self, path):
-        self.del_all()
-        for val in path:
-            if val[1] is not None:
-                self.insert(val[0])
+    def load_last(self):
+        cursor = self.db.cursor()
+        cursor.execute('SELECT sets FROM dsu WHERE id = (SELECT MAX(id) FROM dsu)')
+        value = cursor.fetchone()
+        cursor.close()
+        return value

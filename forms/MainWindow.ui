@@ -103,7 +103,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineAdd">
+         <widget class="QSpinBox" name="lineAdd">
           <property name="maximumSize">
            <size>
             <width>170</width>
@@ -115,6 +115,12 @@
             <family>Nokia Sans S60</family>
             <pointsize>10</pointsize>
            </font>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>9999999</number>
           </property>
          </widget>
         </item>
@@ -141,7 +147,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineFind">
+         <widget class="QSpinBox" name="lineFind">
           <property name="maximumSize">
            <size>
             <width>170</width>
@@ -153,6 +159,15 @@
             <family>Nokia Sans S60</family>
             <pointsize>10</pointsize>
            </font>
+          </property>
+          <property name="toolTipDuration">
+           <number>-1</number>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>9999999</number>
           </property>
          </widget>
         </item>

@@ -27,6 +27,9 @@ class Facade:
         value = self.dsu.print_sets()
         self.DB.insert(value)
 
+    def loadDB(self):
+        self.DB.load_last()
+
 
 if __name__ == '__main__':
     # facade = Facade()
