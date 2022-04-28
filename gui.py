@@ -30,6 +30,7 @@ class MainWindow(QMainWindow):
         self.tableWidget.setHorizontalHeaderLabels(["1"])
         self.tableWidget.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
+        self.update()
         logging.log(logging.INFO, 'Приложение запущено')
 
     def update(self):
@@ -59,7 +60,6 @@ class MainWindow(QMainWindow):
     def find(self):  # Кнопка поиска родителя
         text = self.lineFind.text()
         self.label.setText(str(self.facade.find(int(text))))
-
         logging.log(logging.INFO, 'Родитель найден!')
 
     def save(self):  # Кнопка сохранения данных в БД
@@ -67,8 +67,8 @@ class MainWindow(QMainWindow):
         logging.log(logging.INFO, 'Данные сохранены')
 
     def delete_data(self):  # Кнопка удаления данных из БД
-        pass
-
+        self.facade.deleteDB()
+        self.update()
         logging.log(logging.INFO, 'Данные удалены')
 
     def load(self):  # Кнопка загрузки данных из БД
@@ -80,20 +80,6 @@ class MainWindow(QMainWindow):
         # print(self.facade.get)
         # self.WidgetDSU.addItems(self.list)
         pass
-
-    def warning_no_nums(self):
-        """
-        Создание MessageBox, если данные не введены.
-        :return: None
-        """
-        messagebox_del = QMessageBox(self)
-        messagebox_del.setWindowTitle("Ошибка ввода")
-        messagebox_del.setText("Заполните поле!")
-        messagebox_del.setIcon(QMessageBox.Warning)
-        messagebox_del.setStandardButtons(QMessageBox.Ok)
-
-        messagebox_del.show()
-        logging.log(logging.INFO, 'Открыто диалоговое окно "Ошибка ввода"')
 
 
 class UnionWidget(QtWidgets.QWidget):
@@ -113,20 +99,6 @@ class UnionWidget(QtWidgets.QWidget):
         window.update()
 
         logging.log(logging.INFO, 'Элементы объединены')
-
-    def warning_no_nums(self):
-        """
-        Создание MessageBox, если данные не введены.
-        :return: None
-        """
-        messagebox_del = QMessageBox(self)
-        messagebox_del.setWindowTitle("Ошибка ввода")
-        messagebox_del.setText("Заполните поле!")
-        messagebox_del.setIcon(QMessageBox.Warning)
-        messagebox_del.setStandardButtons(QMessageBox.Ok)
-
-        messagebox_del.show()
-        logging.log(logging.INFO, 'Открыто диалоговое окно "Ошибка ввода"')
 
 
 class Builder:

@@ -24,14 +24,13 @@ class DataBase:
         sql.close()
         return data
 
-    def del_all(self):
-        cur = self.db.cursor()
-        cur.execute("DELETE from dsu")
-        self.db.commit()
-
     def insert(self, data):
+        self.del_all()
         cur = self.db.cursor()
-        cur.execute(f"""INSERT INTO dsu (sets) VALUES ('{data}')""")
+        a = list(map(str, data[0]))  # преобразуем список интов в список строк
+        # print(a)
+        # print('вы вставили: ', ', '.join(a)) # преобразуем список в одну строку
+        cur.execute(f"""INSERT INTO dsu (sets) VALUES ('{', '.join(a)}')""")
         self.db.commit()
         cur.close()
 
@@ -41,3 +40,22 @@ class DataBase:
         value = cursor.fetchone()
         cursor.close()
         return value
+
+    def get_from_db(self):
+        """
+        Возвращает все значения из базы данных в переменной data
+        :return: data
+        """
+        sql = self.db.cursor()
+        data = [value for value in sql.execute(f"SELECT sets FROM dsu")]
+        if not data:
+            return None
+        else:
+            data = data[0][0]
+        sql.close()
+        return data
+
+    def del_all(self):
+        cur = self.db.cursor()
+        cur.execute("DELETE from dsu")
+        self.db.commit()
