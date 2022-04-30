@@ -1,4 +1,3 @@
-
 class DSU:
 
     def __init__(self):
@@ -14,9 +13,12 @@ class DSU:
             self.rank[i] = 0
 
     def find(self, k):
-        if self.parent[k] != k:
-            self.parent[k] = self.find(self.parent[k])
-        return self.parent[k]
+        try:
+            if self.parent[k] != k:
+                self.parent[k] = self.find(self.parent[k])
+            return self.parent[k]
+        except LookupError:
+            return False
 
     def union(self, a, b):
         x = self.find(a)

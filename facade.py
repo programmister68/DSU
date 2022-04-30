@@ -11,7 +11,7 @@ class Facade:
 
     def build(self):
         data = self.DB.get_from_db()
-        print('получил', data)
+        print('Выгрузка данных: ', data)
         if data is not None:
             data = data.split(', ')
             for i in data:

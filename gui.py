@@ -1,6 +1,6 @@
 from PyQt5 import uic, QtWidgets
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QAbstractScrollArea, QTableWidgetItem
+from PyQt5.QtWidgets import QMainWindow, QApplication, QAbstractScrollArea, QTableWidgetItem, QMessageBox
 
 from facade import Facade
 import sys
@@ -24,7 +24,6 @@ class MainWindow(QMainWindow):
         self.findButton.clicked.connect(self.find)
         self.saveButton.clicked.connect(self.save)
         self.deleteButton.clicked.connect(self.delete_data)
-        self.loadButton.clicked.connect(self.load)
 
         self.tableWidget.setColumnCount(1)
         self.tableWidget.setHorizontalHeaderLabels(["1"])
@@ -58,9 +57,12 @@ class MainWindow(QMainWindow):
         logging.log(logging.INFO, 'Окно объединения запущено')
 
     def find(self):  # Кнопка поиска родителя
-        text = self.lineFind.text()
-        self.label.setText(str(self.facade.find(int(text))))
-        logging.log(logging.INFO, 'Родитель найден!')
+        text = int(self.lineFind.text())
+        if self.facade.find(int(text)) is False:
+            self.warning_not_found()
+        else:
+            self.label.setText(str(self.facade.find(int(text))))
+            logging.log(logging.INFO, 'Родитель найден!')
 
     def save(self):  # Кнопка сохранения данных в БД
         self.facade.saveDB()
@@ -81,6 +83,19 @@ class MainWindow(QMainWindow):
         # self.WidgetDSU.addItems(self.list)
         pass
 
+    def warning_not_found(self):
+        """
+        Создание MessageBox, если данные содержат буквы и символы.
+        :return: None
+        """
+        messagebox_del = QMessageBox(self)
+        messagebox_del.setWindowTitle("Ошибка")
+        messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))
+        messagebox_del.setText("Данного элемента нет")
+        messagebox_del.setIcon(QMessageBox.Warning)
+        messagebox_del.setStandardButtons(QMessageBox.Ok)
+        messagebox_del.show()
+
 
 class UnionWidget(QtWidgets.QWidget):
     def __init__(self, facade, link=None):
@@ -93,12 +108,58 @@ class UnionWidget(QtWidgets.QWidget):
         self.setWindowTitle('Union')
 
     def union(self):  # Кнопка объединения двух элементов
-        text = self.linePush_1st.text()
-        text2 = self.linePush_2nd.text()
-        self.facade.union(int(text),int(text2))
-        window.update()
+        text = int(self.linePush_1st.text())
+        text2 = int(self.linePush_2nd.text())
 
-        logging.log(logging.INFO, 'Элементы объединены')
+        for list in self.facade.print_sets():
+            for num in list:
+                if text == num:
+                    for num2 in list:
+                        if text2 == num2:
+                            if text2 == text:
+                                self.warning_num_already_union()
+                                logging.log(logging.INFO, 'Элемент уже объединён')
+                            else:
+                                self.facade.union(text, text2)
+                                window.update()
+                                logging.log(logging.INFO, 'Элементы объединены')
+                                break
+                            break
+                    else:
+                        self.warning_not_found()
+                        logging.log(logging.INFO, 'Данного элемента нет')
+                        break
+                    break
+            else:
+                self.warning_not_found()
+                logging.log(logging.INFO, 'Данного элемента нет')
+                break
+
+    def warning_num_already_union(self):
+        """
+        Создание MessageBox, если элемнт уже объединён.
+        :return: None
+        """
+        messagebox_del = QMessageBox(self)
+        messagebox_del.setWindowTitle("Ошибка")
+        messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))
+        messagebox_del.setText("Элемент уже объединён")
+        messagebox_del.setIcon(QMessageBox.Warning)
+        messagebox_del.setStandardButtons(QMessageBox.Ok)
+        messagebox_del.show()
+
+    def warning_not_found(self):
+        """
+        Создание MessageBox, если данные содержат буквы и символы.
+        :return: None
+        """
+        messagebox_del = QMessageBox(self)
+        messagebox_del.setWindowTitle("Ошибка")
+        messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))
+        messagebox_del.setText("Данного элемента нет")
+        messagebox_del.setIcon(QMessageBox.Warning)
+        messagebox_del.setStandardButtons(QMessageBox.Ok)
+        messagebox_del.show()
 
 
 class Builder:
