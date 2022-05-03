@@ -14,7 +14,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.list = []
         self.ui = uic.loadUi('forms/MainWindow.ui', self)
-        self.setWindowIcon(QIcon('icons/icon.ico'))
+        self.setWindowIcon(QIcon('icons/study.ico'))
         self.facade = facade
         self.setWindowTitle('Disjoint-Set')
         self.tableWidget.insertRow(0)
@@ -51,7 +51,6 @@ class MainWindow(QMainWindow):
         logging.log(logging.INFO, 'Элемент добавлен.')
 
     def union(self):  # Кнопка объединения двух элементов
-        pass
         self.ui = UnionWidget(self.facade, self)
         self.ui.show()
         logging.log(logging.INFO, 'Окно объединения запущено')
@@ -66,11 +65,13 @@ class MainWindow(QMainWindow):
 
     def save(self):  # Кнопка сохранения данных в БД
         self.facade.saveDB()
+        self.messageLine.setText('Данные сохранены!')
         logging.log(logging.INFO, 'Данные сохранены')
 
     def delete_data(self):  # Кнопка удаления данных из БД
         self.facade.deleteDB()
         self.update()
+        self.messageLine.setText('Данные удалены!')
         logging.log(logging.INFO, 'Данные удалены')
 
     def load(self):  # Кнопка загрузки данных из БД
@@ -78,16 +79,7 @@ class MainWindow(QMainWindow):
         self.update()
         logging.log(logging.INFO, 'Данные загружены')
 
-    def build(self, data):
-        # print(self.facade.get)
-        # self.WidgetDSU.addItems(self.list)
-        pass
-
     def warning_not_found(self):
-        """
-        Создание MessageBox, если данные содержат буквы и символы.
-        :return: None
-        """
         messagebox_del = QMessageBox(self)
         messagebox_del.setWindowTitle("Ошибка")
         messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))
@@ -111,10 +103,10 @@ class UnionWidget(QtWidgets.QWidget):
         text = int(self.linePush_1st.text())
         text2 = int(self.linePush_2nd.text())
 
-        for list in self.facade.print_sets():
-            for num in list:
+        for list_set in self.facade.print_sets():
+            for num in list_set:
                 if text == num:
-                    for num2 in list:
+                    for num2 in list_set:
                         if text2 == num2:
                             if text2 == text:
                                 self.warning_num_already_union()
@@ -136,10 +128,6 @@ class UnionWidget(QtWidgets.QWidget):
                 break
 
     def warning_num_already_union(self):
-        """
-        Создание MessageBox, если элемнт уже объединён.
-        :return: None
-        """
         messagebox_del = QMessageBox(self)
         messagebox_del.setWindowTitle("Ошибка")
         messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))
@@ -149,10 +137,6 @@ class UnionWidget(QtWidgets.QWidget):
         messagebox_del.show()
 
     def warning_not_found(self):
-        """
-        Создание MessageBox, если данные содержат буквы и символы.
-        :return: None
-        """
         messagebox_del = QMessageBox(self)
         messagebox_del.setWindowTitle("Ошибка")
         messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))

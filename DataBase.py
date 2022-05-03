@@ -1,7 +1,6 @@
 import sqlite3
 import logging
 logging.basicConfig(level=logging.INFO)
-# logging.disable(logging.INFO)
 
 
 class DataBase:
@@ -27,9 +26,9 @@ class DataBase:
     def insert(self, data):
         self.del_all()
         cur = self.db.cursor()
-        a = list(map(str, data[0]))  # преобразуем список интов в список строк
+        a = list(map(str, data[0]))  # преобразуем список int в список str
         # print(a)
-        # print('вы вставили: ', ', '.join(a)) # преобразуем список в одну строку
+        # print('вы вставили: ', ', '.join(a)) преобразуем список в одну строку
         cur.execute(f"""INSERT INTO dsu (sets) VALUES ('{', '.join(a)}')""")
         self.db.commit()
         cur.close()
@@ -41,11 +40,7 @@ class DataBase:
         cursor.close()
         return value
 
-    def get_from_db(self):
-        """
-        Возвращает все значения из базы данных в переменной data
-        :return: data
-        """
+    def get_data_db(self):
         sql = self.db.cursor()
         data = [value for value in sql.execute(f"SELECT sets FROM dsu")]
         if not data:
