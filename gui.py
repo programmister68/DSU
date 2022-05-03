@@ -59,6 +59,7 @@ class MainWindow(QMainWindow):
         text = int(self.lineFind.text())
         if self.facade.find(int(text)) is False:
             self.warning_not_found()
+            self.label.setText('Родитель не найден')
         else:
             self.label.setText(str(self.facade.find(int(text))))
             logging.log(logging.INFO, 'Родитель найден!')
@@ -110,28 +111,29 @@ class UnionWidget(QtWidgets.QWidget):
                         if text2 == num2:
                             if text2 == text:
                                 self.warning_num_already_union()
-                                logging.log(logging.INFO, 'Элемент уже объединён')
+                                self.errorLine.setText('Элементы уже объединены')
                             else:
                                 self.facade.union(text, text2)
                                 window.update()
+                                self.errorLine.setText(' ')
                                 logging.log(logging.INFO, 'Элементы объединены')
                                 break
                             break
                     else:
                         self.warning_not_found()
-                        logging.log(logging.INFO, 'Данного элемента нет')
+                        self.errorLine.setText('Данного элемента нет')
                         break
                     break
             else:
                 self.warning_not_found()
-                logging.log(logging.INFO, 'Данного элемента нет')
+                self.errorLine.setText('Данного элемента нет')
                 break
 
     def warning_num_already_union(self):
         messagebox_del = QMessageBox(self)
         messagebox_del.setWindowTitle("Ошибка")
         messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))
-        messagebox_del.setText("Элемент уже объединён")
+        messagebox_del.setText("Элементы уже объединёны")
         messagebox_del.setIcon(QMessageBox.Warning)
         messagebox_del.setStandardButtons(QMessageBox.Ok)
         messagebox_del.show()

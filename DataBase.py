@@ -15,13 +15,13 @@ class DataBase:
         self.db.commit()
         sql.close()
 
-    def get_from_db(self):
-        sql = self.db.cursor()
-        data = [value for value in sql.execute(f"SELECT * FROM dsu")]
-        if not data:
-            logging.log(logging.INFO, ' база данных пуста')
-        sql.close()
-        return data
+    # def get_from_db(self):
+    #     sql = self.db.cursor()
+    #     data = [value for value in sql.execute(f"SELECT * FROM dsu")]
+    #     if not data:
+    #         logging.log(logging.INFO, ' база данных пуста')
+    #     sql.close()
+    #     return data
 
     def insert(self, data):
         self.del_all()
