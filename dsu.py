@@ -47,18 +47,4 @@ class DSU:
 
 
 if __name__ == '__main__':
-    # ds = DSU()
-    # ds.push(6)
-    # ds.push(8)
-    # ds.push(1)
-    # ds.make_set()
-    # print('____BEFORE________')
-    # ds.print_sets()
-    # ds.union(8, 6)
-    # print('____AFTER_________')
-    # ds.print_sets()
-    # print(' ')
-    # print('PARENTS OF 8 and 6:')
-    # print(ds.find(8))
-    # print(ds.find(6))
     pass

@@ -55,6 +55,10 @@ class FunctionalTest(TestCase):
         save_Button = self.window.ui.saveButton
         QTest.mouseClick(save_Button, QtCore.Qt.MouseButton.LeftButton)
 
-    def test_delete(self):
+    def test_sets_delete(self):
         delete_Button = self.window.ui.deleteButton
         QTest.mouseClick(delete_Button, QtCore.Qt.MouseButton.LeftButton)
+
+
+if __name__ == '__main__':
+    pass
