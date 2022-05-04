@@ -16,7 +16,7 @@ class FunctionalTest(TestCase):
         self.facade = Facade(name)
         self.window = MainWindow(self.facade)
 
-    def test_elem_push(self):
+    def test_elem_add(self):
         add_Button = self.window.ui.addButton
         self.window.lineAdd.setValue(1)
         QTest.mouseClick(add_Button, QtCore.Qt.MouseButton.LeftButton)
@@ -24,8 +24,11 @@ class FunctionalTest(TestCase):
         QTest.mouseClick(add_Button, QtCore.Qt.MouseButton.LeftButton)
 
     def test_elem_union(self):
+        add_Button = self.window.ui.addButton
         self.window.lineAdd.setValue(1)
+        QTest.mouseClick(add_Button, QtCore.Qt.MouseButton.LeftButton)
         self.window.lineAdd.setValue(12)
+        QTest.mouseClick(add_Button, QtCore.Qt.MouseButton.LeftButton)
 
         union_Button = self.window.ui.unionButton
         QTest.mouseClick(union_Button, QtCore.Qt.MouseButton.LeftButton)
@@ -38,9 +41,15 @@ class FunctionalTest(TestCase):
 
         dialog.linePush_1st.setValue(1)
         dialog.linePush_2nd.setValue(12)
-        QTest.mouseClick(dialog.unionButton, QtCore.Qt.MouseButton.LeftButton)
+        QTest.mouseClick(dialog.unionButton2, QtCore.Qt.MouseButton.LeftButton)
 
     def test_elem_find(self):
+        add_Button = self.window.ui.addButton
+        self.window.lineAdd.setValue(1)
+        QTest.mouseClick(add_Button, QtCore.Qt.MouseButton.LeftButton)
+        self.window.lineAdd.setValue(12)
+        QTest.mouseClick(add_Button, QtCore.Qt.MouseButton.LeftButton)
+
         find_Button = self.window.ui.findButton
         self.window.lineFind.setValue(1)
         QTest.mouseClick(find_Button, QtCore.Qt.MouseButton.LeftButton)
@@ -58,7 +67,3 @@ class FunctionalTest(TestCase):
     def test_sets_delete(self):
         delete_Button = self.window.ui.deleteButton
         QTest.mouseClick(delete_Button, QtCore.Qt.MouseButton.LeftButton)
-
-
-if __name__ == '__main__':
-    pass

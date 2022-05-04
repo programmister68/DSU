@@ -16,6 +16,3 @@ for k in range(10000):
 
 for h in range(10000):
     dsu.union(test_elem, test_elem)
-
-if __name__ == '__main__':
-    pass

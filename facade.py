@@ -44,7 +44,3 @@ class Facade:
 
     def deleteDB(self):
         self.DB.del_all()
-
-
-if __name__ == '__main__':
-    pass

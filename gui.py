@@ -97,7 +97,7 @@ class UnionWidget(QtWidgets.QWidget):
         self.link = link
         self.ui = uic.loadUi('forms/dialog_union.ui', self)
         self.setWindowIcon(QIcon('icons/union.ico'))
-        self.unionButton.clicked.connect(self.union)
+        self.unionButton2.clicked.connect(self.union)
         self.setWindowTitle('Union')
 
     def union(self):  # Кнопка объединения двух элементов
@@ -114,7 +114,7 @@ class UnionWidget(QtWidgets.QWidget):
                                 self.errorLine.setText('Элементы уже объединены')
                             else:
                                 self.facade.union(text, text2)
-                                window.update()
+                                self.link.update()
                                 self.errorLine.setText(' ')
                                 logging.log(logging.INFO, 'Элементы объединены')
                                 break

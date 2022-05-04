@@ -221,6 +221,19 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="unionButton2">
+       <property name="font">
+        <font>
+         <family>Nokia Sans S60</family>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Объединить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="verticalSpacer_2">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -238,19 +251,6 @@
        <property name="spacing">
         <number>2</number>
        </property>
-       <item>
-        <widget class="QPushButton" name="unionButton">
-         <property name="font">
-          <font>
-           <family>Nokia Sans S60</family>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Объединить</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">

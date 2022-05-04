@@ -25,6 +25,6 @@ class TestDisjointSet(unittest.TestCase):
         self.dsu.union(1, 1)
         self.assertEqual(self.dsu.parent[1], self.dsu.parent[6])
 
-
-if __name__ == 'main':
-    pass
+    def test_find_error(self):
+        self.dsu.find(4)
+        self.assertRaises(LookupError)

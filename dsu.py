@@ -44,7 +44,3 @@ class DSU:
 
         print(self.listSet)
         return self.listSet
-
-
-if __name__ == '__main__':
-    pass
