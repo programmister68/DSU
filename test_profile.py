@@ -14,5 +14,5 @@ for j in range(10000):
 for k in range(10000):
     dsu.find(test_elem)
 
-for h in range(1000000):
+for h in range(10000):
     dsu.union(test_elem, test_elem)
