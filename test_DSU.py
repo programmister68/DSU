@@ -16,13 +16,11 @@ class TestDisjointSet(unittest.TestCase):
         self.assertEqual({1:1, 6:1, 10:10}, self.dsu.parent)
 
     def test_find(self):
-        self.dsu.union(6, 1)
         self.dsu.find(6)
-        self.assertEqual(self.dsu.parent[1], self.dsu.parent[6])
+        self.assertEqual(self.dsu.parent[6], 6)
 
     def test_parent_is_equal(self):
         self.dsu.union(6, 1)
-        self.dsu.union(1, 1)
         self.assertEqual(self.dsu.parent[1], self.dsu.parent[6])
 
     def test_find_error(self):

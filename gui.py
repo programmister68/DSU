@@ -10,7 +10,14 @@ logging.basicConfig(level=logging.INFO)
 
 
 class MainWindow(QMainWindow):
+    """
+    Класс создания главного окна.
+    """
     def __init__(self, facade):
+        """
+        Загрузка основного окна, прикрепление действий к кнопкам
+        и отображение списка элементов СНМ в tableWidget.
+        """
         super().__init__()
         self.list = []
         self.ui = uic.loadUi('forms/MainWindow.ui', self)
@@ -33,6 +40,10 @@ class MainWindow(QMainWindow):
         logging.log(logging.INFO, 'Приложение запущено')
 
     def update(self):
+        """
+        Функция обновления содержимого таблицы
+        :return: None
+        """
         self.tableWidget.removeRow(0)
         self.tableWidget.insertRow(0)
         list_set = self.facade.print_sets()
@@ -42,7 +53,11 @@ class MainWindow(QMainWindow):
             self.tableWidget.setItem(0, counter, QTableWidgetItem(str(i)))
             counter += 1
 
-    def make_set(self):  # Кнопка добавления данных
+    def make_set(self):
+        """
+        Функция добавления данных в структуру данных
+        :return: None
+        """
         text = self.lineAdd.text()
         self.facade.push(int(text))
         self.facade.make_set()
@@ -50,12 +65,20 @@ class MainWindow(QMainWindow):
 
         logging.log(logging.INFO, 'Элемент добавлен.')
 
-    def union(self):  # Кнопка объединения двух элементов
+    def union(self):
+        """
+        Функция объединения двух элементов
+        :return: None
+        """
         self.ui = UnionWidget(self.facade, self)
         self.ui.show()
         logging.log(logging.INFO, 'Окно объединения запущено')
 
-    def find(self):  # Кнопка поиска родителя
+    def find(self):
+        """
+        Функция поиска представителя (родителя) введённого элемента
+        :return: None
+        """
         text = int(self.lineFind.text())
         if self.facade.find(int(text)) is False:
             self.warning_not_found()
@@ -64,23 +87,39 @@ class MainWindow(QMainWindow):
             self.label.setText(str(self.facade.find(int(text))))
             logging.log(logging.INFO, 'Родитель найден!')
 
-    def save(self):  # Кнопка сохранения данных в БД
+    def save(self):
+        """
+        Функция сохранения данных в Базу Данных
+        :return:
+        """
         self.facade.saveDB()
         self.messageLine.setText('Данные сохранены!')
         logging.log(logging.INFO, 'Данные сохранены')
 
-    def delete_data(self):  # Кнопка удаления данных из БД
+    def delete_data(self):
+        """
+        Функция удаления данных из Базы Данных
+        :return:
+        """
         self.facade.deleteDB()
         self.update()
         self.messageLine.setText('Данные удалены!')
         logging.log(logging.INFO, 'Данные удалены')
 
-    def load(self):  # Кнопка загрузки данных из БД
+    def load(self):
+        """
+        Функция загрузки данных из Базы Данных
+        :return:
+        """
         self.facade.loadDB()
         self.update()
         logging.log(logging.INFO, 'Данные загружены')
 
     def warning_not_found(self):
+        """
+        Создание MessageBox, при отсутсвии элемента для поиска родителя.
+        :return: None
+        """
         messagebox_del = QMessageBox(self)
         messagebox_del.setWindowTitle("Ошибка")
         messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))
@@ -91,7 +130,14 @@ class MainWindow(QMainWindow):
 
 
 class UnionWidget(QtWidgets.QWidget):
+    """
+    Класс инициализации окна объединения множеств.
+    """
     def __init__(self, facade, link=None):
+        """
+        Загрузка основного окна
+        :param link: ссылка на родительское окно
+        """
         super().__init__()
         self.facade = facade
         self.link = link
@@ -100,7 +146,11 @@ class UnionWidget(QtWidgets.QWidget):
         self.unionButton2.clicked.connect(self.union)
         self.setWindowTitle('Union')
 
-    def union(self):  # Кнопка объединения двух элементов
+    def union(self):
+        """
+        Функция объединения двух множеств
+        :return: None
+        """
         text = int(self.linePush_1st.text())
         text2 = int(self.linePush_2nd.text())
 
@@ -111,25 +161,25 @@ class UnionWidget(QtWidgets.QWidget):
                         if text2 == num2:
                             if text2 == text:
                                 self.warning_num_already_union()
-                                self.errorLine.setText('Элементы уже объединены')
                             else:
                                 self.facade.union(text, text2)
                                 self.link.update()
-                                self.errorLine.setText(' ')
                                 logging.log(logging.INFO, 'Элементы объединены')
                                 break
                             break
                     else:
                         self.warning_not_found()
-                        self.errorLine.setText('Данного элемента нет')
                         break
                     break
             else:
                 self.warning_not_found()
-                self.errorLine.setText('Данного элемента нет')
                 break
 
     def warning_num_already_union(self):
+        """
+        Создание MessageBox, при вводе несуществующего в списке элемента для поиска
+        :return: None
+        """
         messagebox_del = QMessageBox(self)
         messagebox_del.setWindowTitle("Ошибка")
         messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))
@@ -139,6 +189,10 @@ class UnionWidget(QtWidgets.QWidget):
         messagebox_del.show()
 
     def warning_not_found(self):
+        """
+        Создание MessageBox, при вводе несуществующего в списке элемента (элементов) для объединения
+        :return: None
+        """
         messagebox_del = QMessageBox(self)
         messagebox_del.setWindowTitle("Ошибка")
         messagebox_del.setWindowIcon(QIcon('icons/warning.ico'))
@@ -149,18 +203,37 @@ class UnionWidget(QtWidgets.QWidget):
 
 
 class Builder:
+    """
+    Класс паттерна "Строитель".
+    Порождающий паттерн проектирования, который позволяет создавать сложные объекты пошагово.
+    """
     def __init__(self):
+        """
+        Инициализация переменных facade и gui.
+        """
         self.facade = None
         self.gui = None
 
     def create_facade(self):
+        """
+        Создание ссылки на объект фасада (Facade).
+        :return: None
+        """
         self.facade = Facade()
 
     def create_gui(self):
+        """
+        Создание ссылки на объект графики (MainWindow), если создана ссылка на фасад.
+        :return: None
+        """
         if self.facade is not None:
             self.gui = MainWindow(self.facade)
 
     def get_result(self):
+        """
+        Получение ссылки на объект графики (MainWindow).
+        :return: gui - ссылка на объект графики.
+        """
         if self.facade is not None and self.gui is not None:
             return self.gui
 

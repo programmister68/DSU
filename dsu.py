@@ -1,6 +1,11 @@
 class DSU:
-
+    """
+    Структура данных система непересекающихся множеств.
+    """
     def __init__(self):
+        """
+        Структура данных система непересекающихся множеств
+        """
         self.parent = {}
         self.rank = {}
         self.universe = []
@@ -8,11 +13,20 @@ class DSU:
         self.listSet = []
 
     def make_set(self):
+        """
+        Функция добавляющая введённые элементы в список
+        :return: None
+        """
         for i in self.universe:
             self.parent[i] = i
             self.rank[i] = 0
 
     def find(self, k):
+        """
+        Функция, осуществляющая поиск представителя (родителя) элемента
+        :param k: искомый элемент
+        :return: parent[k]
+        """
         try:
             if self.parent[k] != k:
                 self.parent[k] = self.find(self.parent[k])
@@ -21,6 +35,12 @@ class DSU:
             return False
 
     def union(self, a, b):
+        """
+        Функция, объединяющее два элемента в одно единое множество
+        :param a: первый объединяемый элемент
+        :param b: первый объединяемый элемент
+        :return: None
+        """
         x = self.find(a)
         y = self.find(b)
         if x == y:
@@ -34,9 +54,18 @@ class DSU:
             self.rank[y] = self.rank[y] + 1
 
     def push(self, item):
+        """
+        Функция, добавляющая элементы в структуру данных
+        :param item: добавляемый элемент
+        :return: None
+        """
         self.universe.append(item)
 
     def print_sets(self):
+        """
+        Функция, выводящая список множеств
+        :return: listSet
+        """
         self.result = [self.find(i) for i in self.universe]
         self.listSet = []
 
